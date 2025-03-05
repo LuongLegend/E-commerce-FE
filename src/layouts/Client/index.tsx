@@ -1,15 +1,10 @@
 import Header from "./Header"
 import Footer from "./Footer"
-
-interface LayoutProps {
-    children: React.ReactNode
-}
-
-const index = ({ children }: LayoutProps) => {
+const index = ({ children }: React.PropsWithChildren) => {
     return (
         <div>
             <Header />
-            {children}
+                {children}
             <Footer />
         </div>
     )
