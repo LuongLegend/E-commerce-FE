@@ -13,3 +13,15 @@
 .bold-text {
   font-weight: 500;
 }
+
+.black {
+  color: black;
+}
+
+.option-link {
+  color: grey;
+  opacity: 0.8;
+}
+.option-link:hover {
+  color: var(--primary-color);
+}
