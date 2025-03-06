@@ -1,13 +1,15 @@
-import Header from "./Header"
-import Footer from "./Footer"
-const index = ({ children }: React.PropsWithChildren) => {
-    return (
-        <div>
-            <Header />
-                {children}
-            <Footer />
-        </div>
-    )
+import { Outlet } from 'react-router'
+import Header from './Header'
+import Footer from './Footer'
+
+const index = () => {
+  return (
+    <div>
+      <Header />
+      <Outlet />
+      <Footer />
+    </div>
+  )
 }
 
 export default index
