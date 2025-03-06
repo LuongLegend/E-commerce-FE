@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Badge } from 'antd';
 import { HeartOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 
-import icon from '../../assets/icon.svg';
+import icon from '~/assets/icon.svg';
 import './Header.css';
 
 const Header = () => {
@@ -15,7 +15,7 @@ const Header = () => {
                 <img src={icon} alt='product' className='header-logo' />
             </Link>
             <div className='search-box-container'>
-                <input
+                <input 
                     placeholder='Search'
                     className='search-box'
                     type='search'

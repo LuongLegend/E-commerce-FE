@@ -1,0 +1,15 @@
+.phone-contact {
+  font-weight: bold;
+  font-size: 26px;
+  color: var(--primary-color);
+}
+
+.support-center {
+  opacity: 0.8;
+  font-size: 0.8rem;
+  color: grey;
+}
+
+.bold-text {
+  font-weight: 500;
+}
