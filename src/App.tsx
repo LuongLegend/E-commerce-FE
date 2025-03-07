@@ -3,7 +3,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { ConfigProvider } from 'antd'
 
 import ClientLayout from './layouts/Client/index'
-import Home from './components/Home'
+import Home from './pages/Home'
 
 import './App.css'
 import 'antd/dist/reset.css'
