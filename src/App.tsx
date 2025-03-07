@@ -15,7 +15,8 @@ function App({ children }: React.PropsWithChildren) {
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: '#3bb77e'
+              colorPrimary: '#3bb77e',
+              fontSize: 16,
             }
           }}
         >

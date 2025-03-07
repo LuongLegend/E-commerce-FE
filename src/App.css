@@ -1,29 +1,43 @@
-*, :after, :before {
-    box-sizing: border-box;
+*,
+:after,
+:before {
+  box-sizing: border-box;
 }
 
 *:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 :root {
-    --input-color: #99A3BA;
-    --input-border: #CDD9ED;
-    --input-background: #fff;
-    --input-placeholder: #CBD1DC;
-  
-    --input-border-focus: #275EFE;
-  
-    --group-color: var(--input-color);
-    --group-border: var(--input-border);
-    --group-background: #EEF4FF;
-  
-    --group-color-focus: #fff;
-    --group-border-focus: var(--input-border-focus);
-    --group-background-focus: #678EFE;
-  
-    --primary-color: #3bb77e;
-    --secondary-color: tomato;
-    --color-blueviolet: blueviolet;
-  }
+  --input-color: #99a3ba;
+  --input-border: #cdd9ed;
+  --input-background: #fff;
+  --input-placeholder: #cbd1dc;
+
+  --input-border-focus: #275efe;
+
+  --group-color: var(--input-color);
+  --group-border: var(--input-border);
+  --group-background: #eef4ff;
+
+  --group-color-focus: #fff;
+  --group-border-focus: var(--input-border-focus);
+  --group-background-focus: #678efe;
+
+  --primary-color: #3bb77e;
+  --secondary-color: tomato;
+  --color-blueviolet: blueviolet;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+  cursor: pointer;
+}
