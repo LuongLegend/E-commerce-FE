@@ -3,11 +3,21 @@ import { CustomerServiceOutlined, AppstoreOutlined } from '@ant-design/icons'
 import { Link } from 'react-router'
 
 import './NavigationBar.css'
-
+import { useEffect, useState } from 'react'
+import callApi from '../../../utils/callApi'
+import { getImageUrl } from '../../../utils/common'
 interface Option {
   value: string
   label: string
   children?: Option[]
+}
+
+interface Category {
+  id: number
+  title: string
+  image: string | null
+  slug: string | null
+  metaTitle: string
 }
 
 const shopOptions = [
@@ -58,13 +68,41 @@ const optionsContent = (options: Option[]) => (
   </Flex>
 )
 
+const optionsCategories = (options: Category[]) => (
+  <Flex vertical gap={'middle'}>
+    {options.map(({ id, title, metaTitle, image }) => (
+      <Button key={id} style={{ padding: 10, width: 200, justifyContent: 'flex-start' }}>
+        <Link to={`/category/${metaTitle}`} className={'option-link bold-text'}>
+          {image && (
+            <img src={getImageUrl(image)} height={20} width={20} alt='category' />
+          )}
+          {title}
+        </Link>
+      </Button>
+    ))}
+  </Flex>
+)
+
 const NavigationBar = () => {
+  const [categories, setCategories] = useState([])
+  useEffect(() => {
+    const getCategory = async () => {
+      const result = await callApi('/category')
+      if (result && result.data) {
+        setCategories(result.data)
+      }
+    }
+    getCategory()
+  }, [])
+
   return (
     <Flex gap={'large'}>
-      <Button type='primary' size='large' style={{ flexGrow: 1 }}>
-        <AppstoreOutlined />
-        All categories
-      </Button>
+      <Popover content={optionsCategories(categories)} arrow={false} placement='bottomLeft' open={true}>
+        <Button type='primary' size='large' style={{ flexGrow: 1 }}>
+          <AppstoreOutlined />
+          All categories
+        </Button>
+      </Popover>
       <Flex justify='center' gap={'large'} style={{ flexGrow: 6 }}>
         <Button color='primary' size='large' variant='text' className='bold-text '>
           Hot deals
