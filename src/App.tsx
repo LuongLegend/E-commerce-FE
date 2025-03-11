@@ -11,6 +11,7 @@ import './App.css'
 import 'antd/dist/reset.css'
 import ProtectedRoute from './ProtectedRoute'
 import Account from './pages/Account'
+import Register from './pages/Register'
 type AppContextType = {
   user: {
     loggedIn: boolean
@@ -38,6 +39,7 @@ function App({ children }: React.PropsWithChildren) {
               <Route element={<ClientLayout />}>
                 <Route path='/' element={<Home />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path='/account' element={<Account />} />
                 </Route>
