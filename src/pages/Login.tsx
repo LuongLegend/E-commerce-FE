@@ -32,12 +32,10 @@ const Login = () => {
     if (result && result.status === 1) {
       messageApi.success('Login successfully!')
       appContext?.setUser({ loggedIn: true })
-      console.log(location.state)
-      navigate('/')
-      if (location.state?.from) {
-        navigate(location.state.from)
-      }
-      console.log(result)
+      const { token } = result
+      localStorage.setItem('token', token);
+      const navigateTo = location.state?.from ? location.state.from : '/'
+      navigate(navigateTo)
     }
   }
   return (

@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router'
 import { AppContext } from './App'
 
-const useAuth = () => {
+export const useAuth = () => {
   const appContext = useContext(AppContext)
   return appContext && appContext.user && appContext.user.loggedIn
 }
