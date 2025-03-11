@@ -97,7 +97,7 @@ const NavigationBar = () => {
 
   return (
     <Flex gap={'large'}>
-      <Popover content={optionsCategories(categories)} arrow={false} placement='bottomLeft' open={true}>
+      <Popover content={optionsCategories(categories)} arrow={false} placement='bottomLeft' >
         <Button type='primary' size='large' style={{ flexGrow: 1 }}>
           <AppstoreOutlined />
           All categories
