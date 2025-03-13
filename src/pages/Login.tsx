@@ -1,6 +1,8 @@
 import { useContext } from 'react'
 import { Button, Flex, Form, Input, Typography, message } from 'antd'
 import { Link, useLocation, useNavigate } from 'react-router'
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 import loginImg from '~/assets/login.png'
 import callApi from '../utils/callApi'
@@ -12,6 +14,13 @@ type LoginForm = {
   password: string
 }
 
+type GoogleResponseType = {
+  email: string
+  name: string
+  picture: string
+  sub: number
+}
+
 const Login = () => {
   const [form] = Form.useForm()
   const navigate = useNavigate()
@@ -19,25 +28,47 @@ const Login = () => {
   const appContext = useContext(AppContext)
   const [messageApi, contextHolder] = message.useMessage()
 
+  const handleLoginSuccess = (token: string) => {
+    messageApi.success('Login successfully!')
+    appContext?.setUser({ loggedIn: true })
+    localStorage.setItem('token', token)
+    const navigateTo = location.state?.from ? location.state.from : '/'
+    navigate(navigateTo)
+  }
+
   const onSubmitLogin = async ({ username, password }: LoginForm) => {
     const data = {
       username,
       password
     }
-    const result = await callApi('/login', 'POST', data)
+    const result = await callApi('/user/login', 'POST', data)
     if (result && result.status === 0) {
       const { msg } = result
       messageApi.error(msg)
     }
     if (result && result.status === 1) {
-      messageApi.success('Login successfully!')
-      appContext?.setUser({ loggedIn: true })
       const { token } = result
-      localStorage.setItem('token', token);
-      const navigateTo = location.state?.from ? location.state.from : '/'
-      navigate(navigateTo)
+      handleLoginSuccess(token)
     }
   }
+
+  const handleGGLogin = async ({ credential }: CredentialResponse) => {
+    if (credential) {
+      const decodedCredential: GoogleResponseType = jwtDecode(credential)
+      const { email, name, picture, sub } = decodedCredential
+      const data = { email, name, picture, ggId: sub }
+      const result = await callApi('/user/login/gg', 'POST', data)
+      if (result && result.status === 1) {
+        const { token } = result
+        handleLoginSuccess(token)
+      }
+      if (result && result.status === 0) {
+        const msgErr = result.msg || 'Register failed! Please try again'
+        messageApi.error(msgErr)
+      }
+    }
+  }
+
   return (
     <div>
       {contextHolder}
@@ -55,8 +86,8 @@ const Login = () => {
                 rules={[
                   { required: true, message: 'Please input!' },
                   {
-                    min: 5,
-                    message: 'At least 5 characters'
+                    min: 6,
+                    message: 'At least 6 characters'
                   }
                 ]}
               >
@@ -66,9 +97,17 @@ const Login = () => {
                 <Input type='password' placeholder='Password' />
               </Form.Item>
               <Form.Item>
-                <Button type='primary' htmlType='submit'>
-                  Login
-                </Button>
+                <Flex gap='middle'>
+                  <Button type='primary' htmlType='submit' size='large'>
+                    Login
+                  </Button>
+                  <GoogleLogin
+                    onSuccess={handleGGLogin}
+                    onError={() => {
+                      console.log('Login Failed')
+                    }}
+                  />
+                </Flex>
               </Form.Item>
             </Flex>
           </Form>
