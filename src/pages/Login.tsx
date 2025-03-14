@@ -1,12 +1,15 @@
 import { useContext } from 'react'
-import { Button, Flex, Form, Input, Typography, message } from 'antd'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
+import { useDispatch } from 'react-redux'
 import { jwtDecode } from 'jwt-decode'
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Button, Flex, Form, Input, Typography, message } from 'antd'
 
 import loginImg from '~/assets/login.png'
 import callApi from '../utils/callApi'
 import { AppContext } from '../App'
+import { fetchLoginUser } from '../store/slices/userSlice'
+import { AppDispatch } from '../store/store'
 
 const { Title } = Typography
 type LoginForm = {
@@ -26,6 +29,7 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const appContext = useContext(AppContext)
+  const dispatch = useDispatch<AppDispatch>()
   const [messageApi, contextHolder] = message.useMessage()
 
   const handleLoginSuccess = (token: string) => {
@@ -41,7 +45,9 @@ const Login = () => {
       username,
       password
     }
+
     const result = await callApi('/user/login', 'POST', data)
+    dispatch(fetchLoginUser(data))
     if (result && result.status === 0) {
       const { msg } = result
       messageApi.error(msg)

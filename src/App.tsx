@@ -2,7 +2,10 @@ import { createContext, Dispatch, SetStateAction, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { ConfigProvider } from 'antd'
+import { Provider } from 'react-redux'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+
+import { store } from './store/store'
 
 import ClientLayout from './layouts/Client/index'
 import Home from './pages/Home'
@@ -25,32 +28,34 @@ function App({ children }: React.PropsWithChildren) {
   const [user, setUser] = useState({ loggedIn: false })
   return (
     <>
-      <AppContext.Provider value={{ user, setUser }}>
-        <AntdRegistry>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: '#3bb77e',
-                fontSize: 16
-              }
-            }}
-          >
-            <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_APP}>
-              {children}
-              <Routes>
-                <Route element={<ClientLayout />}>
-                  <Route path='/' element={<Home />} />
-                  <Route path='/login' element={<Login />} />
-                  <Route path='/register' element={<Register />} />
-                  <Route element={<ProtectedRoute />}>
-                    <Route path='/account' element={<Account />} />
+      <Provider store={store}>
+        <AppContext.Provider value={{ user, setUser }}>
+          <AntdRegistry>
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: '#3bb77e',
+                  fontSize: 16
+                }
+              }}
+            >
+              <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_APP}>
+                {children}
+                <Routes>
+                  <Route element={<ClientLayout />}>
+                    <Route path='/' element={<Home />} />
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/register' element={<Register />} />
+                    <Route element={<ProtectedRoute />}>
+                      <Route path='/account' element={<Account />} />
+                    </Route>
                   </Route>
-                </Route>
-              </Routes>
-            </GoogleOAuthProvider>
-          </ConfigProvider>
-        </AntdRegistry>
-      </AppContext.Provider>
+                </Routes>
+              </GoogleOAuthProvider>
+            </ConfigProvider>
+          </AntdRegistry>
+        </AppContext.Provider>
+      </Provider>
     </>
   )
 }
