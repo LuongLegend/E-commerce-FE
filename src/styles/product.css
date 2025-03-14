@@ -7,6 +7,13 @@
 .product-price::before {
   content: '$';
 }
+
 .product-by {
   opacity: 0.5;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
