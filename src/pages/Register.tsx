@@ -1,5 +1,5 @@
 import { Flex, Typography, Form, Input, Checkbox, Button, Space, message } from 'antd'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 
 import callApi from '../utils/callApi'
 

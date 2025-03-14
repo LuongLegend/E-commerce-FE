@@ -1,7 +1,7 @@
 import { Button, Card, Flex, Space, Typography } from 'antd'
 import { getImageUrl } from '../utils/common'
 import { HeartOutlined, ShoppingOutlined } from '@ant-design/icons'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import './Product.css'
 
 type ProductType = {
@@ -36,7 +36,7 @@ const Product = ({ product }: { product: ProductType }) => {
   return (
     <Card hoverable>
       <Flex vertical style={{ maxWidth: 200 }}>
-        {frontImg && <img src={getImageUrl(frontImg)} />}
+        {frontImg && <img src={getImageUrl(frontImg)} alt={title} />}
         <Link to={`/product/${slug}-${id}`}>
           <Title level={4}>{title}</Title>
         </Link>

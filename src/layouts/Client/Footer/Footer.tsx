@@ -1,5 +1,5 @@
 import { Flex, Typography } from 'antd'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { CustomerServiceOutlined, HomeOutlined, PhoneOutlined, SendOutlined } from '@ant-design/icons'
 
 import icon from '~/assets/icon.svg'

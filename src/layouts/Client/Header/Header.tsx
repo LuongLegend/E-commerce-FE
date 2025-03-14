@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import { Badge, Popover } from 'antd'
 import { HeartOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 

@@ -1,6 +1,6 @@
 import { SetStateAction, useContext, Dispatch, ComponentProps } from 'react'
 import { Button, Flex } from 'antd'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import { EnvironmentOutlined, HeartOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
 
 import { AppContext } from '../../../App'
