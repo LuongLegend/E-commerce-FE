@@ -2,8 +2,6 @@ import { Flex, Typography, Form, Input, Checkbox, Button, Space, message } from 
 import { Link, useNavigate } from 'react-router'
 
 import callApi from '../utils/callApi'
-import { useContext } from 'react'
-import { AppContext } from '../App'
 
 type RegisterFormType = {
   username: string
@@ -16,7 +14,6 @@ type RegisterFormType = {
 const Register = () => {
   const [form] = Form.useForm()
   const [messageApi, contextHolder] = message.useMessage()
-  const appContext = useContext(AppContext)
   const navigate = useNavigate()
   const { Title } = Typography
 
