@@ -1,13 +1,14 @@
-import { Card, Flex, Typography } from 'antd'
+import { Flex, Typography } from 'antd'
 import { Link } from 'react-router'
 import { CustomerServiceOutlined, HomeOutlined, PhoneOutlined, SendOutlined } from '@ant-design/icons'
-import icon from '~/assets/icon.svg'
 
+import icon from '~/assets/icon.svg'
+import './Footer.css'
 const { Title } = Typography
 const Footer = () => {
   return (
-    <Flex justify='space-between' flex={3} className='footer' align='stretch'>
-      <Card style={{ marginRight: 50 }} styles={{ body: { paddingLeft: 0 } }} variant='borderless'>
+    <Flex justify='space-between' flex={3} className='footer' align='stretch' style={{ marginTop: 30 }}>
+      <div style={{ marginRight: 50 }}>
         <Flex vertical gap={'middle'} style={{ opacity: 0.8 }}>
           <img src={icon} alt='icon' />
           Awesome grocery store website template
@@ -32,10 +33,10 @@ const Footer = () => {
             <b>Hours:</b>10:00 - 18:00, Mon - Sat
           </div>
         </Flex>
-      </Card>
-      <Card style={{ width: '100%' }} variant='borderless'>
+      </div>
+      <div className='footer-item'>
         <Title level={4}>Company</Title>
-        <Flex vertical gap={'small'}>
+        <Flex vertical gap={'middle'}>
           <Link to='#'>About us</Link>
           <Link to='#'>Delivery Information</Link>
           <Link to='#'>Privacy Policy</Link>
@@ -44,10 +45,10 @@ const Footer = () => {
           <Link to='#'>Support center</Link>
           <Link to='#'>Career</Link>
         </Flex>
-      </Card>
-      <Card style={{ width: '100%' }} variant='borderless'>
+      </div>
+      <div className='footer-item'>
         <Title level={4}>Account</Title>
-        <Flex vertical gap={'small'}>
+        <Flex vertical gap={'middle'}>
           <Link to='#'>Sign in</Link>
           <Link to='#'>View cart</Link>
           <Link to='#'>My wishlist</Link>
@@ -56,10 +57,10 @@ const Footer = () => {
           <Link to='#'>Shipping details</Link>
           <Link to='#'>Compare product</Link>
         </Flex>
-      </Card>
-      <Card style={{ width: '100%' }} variant='borderless'>
+      </div>
+      <div className='footer-item'>
         <Title level={4}>Corporate</Title>
-        <Flex vertical gap={'small'}>
+        <Flex vertical gap={'middle'}>
           <Link to='#'>Become a vendor</Link>
           <Link to='#'>Affiliate Program</Link>
           <Link to='#'>Farm Business</Link>
@@ -68,10 +69,10 @@ const Footer = () => {
           <Link to='#'>Accessibility</Link>
           <Link to='#'>Promotions</Link>
         </Flex>
-      </Card>
-      <Card style={{ width: '100%' }} variant='borderless'>
+      </div>
+      <div className='footer-item'>
         <Title level={4}>Popular</Title>
-        <Flex vertical gap={'small'}>
+        <Flex vertical gap={'middle'}>
           <Link to='#'>Milk & Flavoured Milk</Link>
           <Link to='#'>Butter and Margarine</Link>
           <Link to='#'>Eggs Substitutes</Link>
@@ -80,7 +81,7 @@ const Footer = () => {
           <Link to='#'>Tea & Kombucha</Link>
           <Link to='#'>Cheese</Link>
         </Flex>
-      </Card>
+      </div>
     </Flex>
   )
 }
