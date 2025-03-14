@@ -1,15 +1,13 @@
-import { useContext } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { jwtDecode } from 'jwt-decode'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Button, Flex, Form, Input, Typography, message } from 'antd'
 
 import loginImg from '~/assets/login.png'
-import callApi from '../utils/callApi'
-import { AppContext } from '../App'
-import { fetchLoginUser } from '../store/slices/userSlice'
-import { AppDispatch } from '../store/store'
+import { fetchLoginUser, fetchLoginGg } from '../store/slices/userSlice'
+import { AppDispatch, RootState } from '../store/store'
 
 const { Title } = Typography
 type LoginForm = {
@@ -28,17 +26,23 @@ const Login = () => {
   const [form] = Form.useForm()
   const navigate = useNavigate()
   const location = useLocation()
-  const appContext = useContext(AppContext)
   const dispatch = useDispatch<AppDispatch>()
+  const user = useSelector((state: RootState) => state.user)
+  const { error, loggedIn } = user
   const [messageApi, contextHolder] = message.useMessage()
 
-  const handleLoginSuccess = (token: string) => {
-    messageApi.success('Login successfully!')
-    appContext?.setUser({ loggedIn: true })
-    localStorage.setItem('token', token)
-    const navigateTo = location.state?.from ? location.state.from : '/'
-    navigate(navigateTo)
-  }
+  useEffect(() => {
+    if (error) {
+      messageApi.error(error)
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (loggedIn) {
+      const navigateTo = location.state?.from ? location.state.from : '/'
+      navigate(navigateTo)
+    }
+  }, [loggedIn])
 
   const onSubmitLogin = async ({ username, password }: LoginForm) => {
     const data = {
@@ -46,16 +50,7 @@ const Login = () => {
       password
     }
 
-    const result = await callApi('/user/login', 'POST', data)
     dispatch(fetchLoginUser(data))
-    if (result && result.status === 0) {
-      const { msg } = result
-      messageApi.error(msg)
-    }
-    if (result && result.status === 1) {
-      const { token } = result
-      handleLoginSuccess(token)
-    }
   }
 
   const handleGGLogin = async ({ credential }: CredentialResponse) => {
@@ -63,15 +58,7 @@ const Login = () => {
       const decodedCredential: GoogleResponseType = jwtDecode(credential)
       const { email, name, picture, sub } = decodedCredential
       const data = { email, name, picture, ggId: sub }
-      const result = await callApi('/user/login/gg', 'POST', data)
-      if (result && result.status === 1) {
-        const { token } = result
-        handleLoginSuccess(token)
-      }
-      if (result && result.status === 0) {
-        const msgErr = result.msg || 'Register failed! Please try again'
-        messageApi.error(msgErr)
-      }
+      dispatch(fetchLoginGg(data))
     }
   }
 
