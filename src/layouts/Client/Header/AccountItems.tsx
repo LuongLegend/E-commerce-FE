@@ -1,9 +1,10 @@
-import { SetStateAction, useContext, Dispatch, ComponentProps } from 'react'
+import { SetStateAction, Dispatch } from 'react'
 import { Button, Flex } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { EnvironmentOutlined, HeartOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
 
-import { AppContext } from '../../../App'
+import { useDispatch } from 'react-redux'
+import { removeUser } from '../../../store/slices/userSlice'
 
 type AccountItemsProps = {
   handleOpen: Dispatch<SetStateAction<boolean>>
@@ -11,10 +12,10 @@ type AccountItemsProps = {
 
 const AccountItems = ({ handleOpen }: AccountItemsProps) => {
   const navigate = useNavigate()
-  const appContext = useContext(AppContext)
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    appContext?.setUser({ loggedIn: false })
+    dispatch(removeUser());
     handleOpen(false)
     navigate('/')
   }

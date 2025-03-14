@@ -1,10 +1,11 @@
-import { useContext } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { AppContext } from './App'
+import { useSelector } from 'react-redux'
+import { RootState } from './store/store'
 
 export const useAuth = () => {
-  const appContext = useContext(AppContext)
-  return appContext && appContext.user && appContext.user.loggedIn
+  const user = useSelector((state: RootState) => state.user)
+
+  return user && user.loggedIn
 }
 
 const ProtectedRoute = () => {

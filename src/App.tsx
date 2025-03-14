@@ -1,8 +1,10 @@
-import { createContext, Dispatch, SetStateAction, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { ConfigProvider } from 'antd'
+import { Provider } from 'react-redux'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+
+import { store } from './store/store'
 
 import ClientLayout from './layouts/Client/index'
 import Home from './pages/Home'
@@ -13,19 +15,11 @@ import 'antd/dist/reset.css'
 import ProtectedRoute from './ProtectedRoute'
 import Account from './pages/Account'
 import Register from './pages/Register'
-type AppContextType = {
-  user: {
-    loggedIn: boolean
-  }
-  setUser: Dispatch<SetStateAction<{ loggedIn: boolean }>>
-}
-export const AppContext = createContext<AppContextType | null>(null)
 
 function App({ children }: React.PropsWithChildren) {
-  const [user, setUser] = useState({ loggedIn: false })
   return (
     <>
-      <AppContext.Provider value={{ user, setUser }}>
+      <Provider store={store}>
         <AntdRegistry>
           <ConfigProvider
             theme={{
@@ -50,7 +44,7 @@ function App({ children }: React.PropsWithChildren) {
             </GoogleOAuthProvider>
           </ConfigProvider>
         </AntdRegistry>
-      </AppContext.Provider>
+      </Provider>
     </>
   )
 }
