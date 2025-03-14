@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router-dom'
 import Header from './Header/Header'
-import Footer from './Footer/Footer'
-import NavigationBar from './NavigationBar/NavigationBar'
+import Footer from './Footer'
+import NavigationBar from './NavigationBar'
 
 const index = () => {
   return (

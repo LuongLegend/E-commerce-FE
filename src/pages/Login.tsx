@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Button, Flex, Form, Input, Typography, message } from 'antd'
-import { Link, useLocation, useNavigate } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 

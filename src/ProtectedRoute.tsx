@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Navigate, Outlet, useLocation } from 'react-router'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { AppContext } from './App'
 
 export const useAuth = () => {

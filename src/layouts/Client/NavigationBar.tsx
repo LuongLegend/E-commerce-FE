@@ -1,11 +1,11 @@
 import { Button, Flex, Popover } from 'antd'
 import { CustomerServiceOutlined, AppstoreOutlined } from '@ant-design/icons'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
-import './NavigationBar.css'
 import { useEffect, useState } from 'react'
-import callApi from '../../../utils/callApi'
-import { getImageUrl } from '../../../utils/common'
+import callApi from '../../utils/callApi'
+import { getImageUrl } from '../../utils/common'
+import '~/styles/navigationBar.css'
 interface Option {
   value: string
   label: string

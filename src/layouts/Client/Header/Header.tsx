@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import { Badge, Popover } from 'antd'
 import { HeartOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 
-import icon from '~/assets/icon.svg'
-import './Header.css'
 import AccountItems from './AccountItems'
 import { useAuth } from '../../../ProtectedRoute'
+
+import icon from '~/assets/icon.svg'
+import '~/styles/header.css'
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState('')
