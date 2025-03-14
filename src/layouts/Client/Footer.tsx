@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { CustomerServiceOutlined, HomeOutlined, PhoneOutlined, SendOutlined } from '@ant-design/icons'
 
 import icon from '~/assets/icon.svg'
-import './Footer.css'
+import '~/styles/footer.css'
+
 const { Title } = Typography
 const Footer = () => {
   return (
